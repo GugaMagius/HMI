@@ -1,0 +1,326 @@
+<!--
+          <!-- TEMPERATURA ATUAL DOS QUEIMADORES -->
+          <div class="p-col-2">
+            <div class="box"><p>Temperatura Atual:</p></div>
+          </div>
+          <div class="p-col-5">
+            <div
+              class="box dispTempAtual"
+              :class="{ flhTemp: Variaveis.falhaTemp1PL.valor }"
+            >
+              <p>{{ Variaveis.temperQueim1PL.valor }} ºC</p>
+            </div>
+          </div>
+          <div class="p-col-5">
+            <div
+              class="box dispTempAtual"
+              :class="{ flhTemp: Variaveis.falhaTemp2PL.valor }"
+            >
+              <p>{{ Variaveis.temperQueim2PL.valor }} ºC</p>
+            </div>
+          </div>
+
+          <!-- SETPOINT DE TEMPERATURA DOS QUEIMADORES -->
+          <div class="p-col-2">
+            <div class="box"><p>SetPoint de temperatura</p></div>
+          </div>
+          <div class="p-col-5">
+            <div class="box dispTempSP">
+              <p>
+                <Button
+                  icon="pi pi-minus"
+                  class="p-button-lg"
+                  @click="
+                    incDecValor(
+                      'spQueim1PL',
+                      parseInt(Variaveis.spQueim1PL.valor) - parseInt(5)
+                    )
+                  "
+                />
+                {{ Variaveis.spQueim1PL.valor }} ºC
+                <Button
+                  icon="pi pi-plus"
+                  class="p-button-lg"
+                  @click="
+                    incDecValor(
+                      'spQueim1PL',
+                      parseInt(Variaveis.spQueim1PL.valor) + parseInt(5)
+                    )
+                  "
+                />
+              </p>
+            </div>
+          </div>
+          <div class="p-col-5">
+            <div class="box dispTempSP">
+              <p>
+                <Button
+                  icon="pi pi-minus"
+                  class="p-button-lg"
+                  @click="
+                    incDecValor(
+                      'spQueim2PL',
+                      parseInt(Variaveis.spQueim2PL.valor) - parseInt(5)
+                    )
+                  "
+                />
+                {{ Variaveis.spQueim2PL.valor }} ºC
+                <Button
+                  icon="pi pi-plus"
+                  class="p-button-lg"
+                  @click="
+                    incDecValor(
+                      'spQueim2PL',
+                      parseInt(Variaveis.spQueim2PL.valor) + parseInt(5)
+                    )
+                  "
+                />
+              </p>
+            </div>
+          </div>
+
+          <!-- LIGA / DESLIGA VENTILADORES -->
+          <div class="p-col-2">
+            <div class="box"><p>Ventiladores</p></div>
+          </div>
+          <div class="p-col-5">
+            <div class="box" :class="{ flhVent: Variaveis.falhaVent1PL.valor }">
+              <p>
+                <Button
+                  v-if="Variaveis.leitVent1PL.valor"
+                  label="Ligado"
+                  class="
+                    p-button-raised
+                    p-button-success
+                    p-button-rounded
+                    p-button-lg
+                  "
+                  @mousedown="pulsoOn('comVent1PL')"
+                  @click="pulsoOff('comVent1PL')"
+                />
+                <Button
+                  v-if="!Variaveis.leitVent1PL.valor"
+                  label="Desligado"
+                  class="
+                    p-button-outlined
+                    p-button-success
+                    p-button-rounded
+                    p-button-lg
+                  "
+                  @mousedown="pulsoOn('comVent1PL')"
+                  @click="pulsoOff('comVent1PL')"
+                />
+              </p>
+            </div>
+          </div>
+          <div class="p-col-5">
+            <div class="box" :class="{ flhVent: Variaveis.falhaVent2PL.valor }">
+              <p>
+                <Button
+                  v-if="Variaveis.leitVent2PL.valor"
+                  label="Ligado"
+                  class="
+                    p-button-raised
+                    p-button-success
+                    p-button-rounded
+                    p-button-lg
+                  "
+                  @mousedown="pulsoOn('comVent2PL')"
+                  @click="pulsoOff('comVent2PL')"
+                />
+                <Button
+                  v-if="!Variaveis.leitVent2PL.valor"
+                  label="Desligado"
+                  class="
+                    p-button-outlined
+                    p-button-success
+                    p-button-rounded
+                    p-button-lg
+                  "
+                  @mousedown="pulsoOn('comVent2PL')"
+                  @click="pulsoOff('comVent2PL')"
+                />
+              </p>
+            </div>
+          </div>
+
+          <!-- LIGA / DESLIGA QUEIMADORES -->
+          <div class="p-col-2">
+            <div class="box"><p>Queimadores</p></div>
+          </div>
+          <div class="p-col-5">
+            <div class="box">
+              <p>
+                <Button
+                  v-if="Variaveis.leitQuem1PL.valor"
+                  label="Ligado"
+                  class="
+                    p-button-raised
+                    p-button-success
+                    p-button-rounded
+                    p-button-lg
+                  "
+                  @mousedown="pulsoOn('comQuem1PL')"
+                  @click="pulsoOff('comQuem1PL')"
+                />
+                <Button
+                  v-if="!Variaveis.leitQuem1PL.valor"
+                  label="Desligado"
+                  class="
+                    p-button-outlined
+                    p-button-success
+                    p-button-rounded
+                    p-button-lg
+                  "
+                  @mousedown="pulsoOn('comQuem1PL')"
+                  @click="pulsoOff('comQuem1PL')"
+                />
+              </p>
+            </div>
+          </div>
+          <div class="p-col-5">
+            <div class="box">
+              <p>
+                <Button
+                  v-if="Variaveis.leitQuem2PL.valor"
+                  label="Ligado"
+                  class="
+                    p-button-raised
+                    p-button-success
+                    p-button-rounded
+                    p-button-lg
+                  "
+                  @mousedown="pulsoOn('comQuem2PL')"
+                  @click="pulsoOff('comQuem2PL')"
+                />
+                <Button
+                  v-if="!Variaveis.leitQuem2PL.valor"
+                  label="Desligado"
+                  class="
+                    p-button-outlined
+                    p-button-success
+                    p-button-rounded
+                    p-button-lg
+                  "
+                  @mousedown="pulsoOn('comQuem2PL')"
+                  @click="pulsoOff('comQuem2PL')"
+                />
+              </p>
+            </div>
+          </div>
+
+          <!-- RESET DE FALHA DOS QUEIMADORES -->
+          <div class="p-col-2">
+            <div class="box"><p>Reset Falha Queimadores</p></div>
+          </div>
+          <div class="p-col-5">
+            <div class="box">
+              <p>
+                <Button
+                  v-if="Variaveis.falhaQuem1PL.valor"
+                  label="Falha"
+                  class="
+                    p-button-raised p-button-danger p-button-rounded p-button-lg
+                  "
+                  @mousedown="pulsoOn('rstQuem1PL')"
+                  @click="pulsoOff('rstQuem1PL')"
+                />
+                <Button
+                  v-if="!Variaveis.falhaQuem1PL.valor"
+                  label="OK"
+                  class="
+                    p-button-outlined
+                    p-button-success
+                    p-button-rounded
+                    p-button-lg
+                  "
+                  @mousedown="pulsoOn('rstQuem1PL')"
+                  @click="pulsoOff('rstQuem1PL')"
+                />
+              </p>
+            </div>
+          </div>
+          <div class="p-col-5">
+            <div class="box">
+              <p>
+                <Button
+                  v-if="Variaveis.falhaQuem2PL.valor"
+                  label="Falha"
+                  class="
+                    p-button-raised p-button-danger p-button-rounded p-button-lg
+                  "
+                  @mousedown="pulsoOn('rstQuem2PL')"
+                  @click="pulsoOff('rstQuem2PL')"
+                />
+                <Button
+                  v-if="!Variaveis.falhaQuem2PL.valor"
+                  label="OK"
+                  class="
+                    p-button-outlined
+                    p-button-success
+                    p-button-rounded
+                    p-button-lg
+                  "
+                  @mousedown="pulsoOn('rstQuem2PL')"
+                  @click="pulsoOff('rstQuem2PL')"
+                />
+              </p>
+            </div>
+          </div>
+
+          <!-- LIGA / DESLIGA CORTINA DE AR -->
+          <div class="p-col-2">
+            <div class="box"><p>Cortina de ar</p></div>
+          </div>
+          <div class="p-col-10">
+            <div class="box">
+              <p>
+                <Button
+                  v-if="Variaveis.leitCortArPL.valor"
+                  label="Ligado"
+                  class="
+                    p-button-raised
+                    p-button-success
+                    p-button-rounded
+                    p-button-lg
+                  "
+                  @mousedown="pulsoOn('comCortArPL')"
+                  @click="pulsoOff('comCortArPL')"
+                />
+                <Button
+                  v-if="!Variaveis.leitCortArPL.valor"
+                  label="Desligado"
+                  class="
+                    p-button-outlined
+                    p-button-danger
+                    p-button-rounded
+                    p-button-lg
+                  "
+                  @mousedown="pulsoOn('comCortArPL')"
+                  @click="pulsoOff('comCortArPL')"
+                />
+              </p>
+            </div>
+          </div>
+
+          <!-- RESET DE FALHAS GERAL -->
+          <div class="p-col-2">
+            <div class="box"><p>Reset de falhas</p></div>
+          </div>
+          <div class="p-col-10">
+            <div class="box">
+              <p>
+                <Button
+                  label="Reset"
+                  class="
+                    p-button-raised
+                    p-button-warning
+                    p-button-rounded
+                    p-button-lg
+                  "
+                  @mousedown="pulsoOn('comResetPL')"
+                  @click="pulsoOff('comResetPL')"
+                />
+              </p>
+            </div>
+          </div>
